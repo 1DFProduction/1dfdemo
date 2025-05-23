@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Toy Shop - Japanese Auto Repair</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+        }
+        
+        .japanese-font {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 70vh;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .brand-logo {
+            transition: all 0.3s ease;
+        }
+        
+        .brand-logo:hover {
+            transform: scale(1.1);
+        }
+        
+        .sakura {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f8a5c2"><path d="M12 2C13.1 2 14 2.9 14 4S13.1 6 12 6 10 5.1 10 4 10.9 2 12 2M15.5 8C16.3 8 17 8.7 17 9.5S16.3 11 15.5 11 14 10.3 14 9.5 14.7 8 15.5 8M8.5 8C9.3 8 10 8.7 10 9.5S9.3 11 8.5 11 7 10.3 7 9.5 7.7 8 8.5 8M12 12C10.1 12 8.5 12.6 7.3 13.7C6.1 14.8 5.5 16.3 5.5 18V22H18.5V18C18.5 16.3 17.9 14.8 16.7 13.7C15.5 12.6 13.9 12 12 12Z"/></svg>') no-repeat;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ef4444;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sakura animation elements -->
+    <div id="sakura-container"></div>
+
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mr-3">
+                    <i class="fas fa-car text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold">The Toy Shop</h1>
+                    <p class="text-xs text-gray-600">Japanese Auto Repair</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-gray-800 hover:text-red-600">Home</a>
+                <a href="#services" class="nav-link text-gray-800 hover:text-red-600">Services</a>
+                <a href="#about" class="nav-link text-gray-800 hover:text-red-600">About</a>
+                <a href="#brands" class="nav-link text-gray-800 hover:text-red-600">Brands</a>
+                <a href="#contact" class="nav-link text-gray-800 hover:text-red-600">Contact</a>
+            </nav>
+            
+            <div class="hidden md:block">
+                <a href="#contact" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full transition duration-300">
+                    Book Appointment
+                </a>
+            </div>
+            
+            <button id="mobile-menu-button" class="md:hidden text-gray-800">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 shadow-lg">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="text-gray-800 hover:text-red-600">Home</a>
+                <a href="#services" class="text-gray-800 hover:text-red-600">Services</a>
+                <a href="#about" class="text-gray-800 hover:text-red-600">About</a>
+                <a href="#brands" class="text-gray-800 hover:text-red-600">Brands</a>
+                <a href="#contact" class="text-gray-800 hover:text-red-600">Contact</a>
+                <a href="#contact" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full text-center transition duration-300">
+                    Book Appointment
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero flex items-center justify-center text-white relative overflow-hidden">
+        <div class="container mx-auto px-4 text-center z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                <span class="block">The Toy Shop</span>
+                <span class="text-red-400">Japanese Auto Repair</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
+                Precision care for your Japanese vehicle. Experience authentic Japanese craftsmanship.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#contact" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full text-lg font-medium transition duration-300">
+                    Schedule Service
+                </a>
+                <a href="#services" class="bg-white hover:bg-gray-100 text-gray-800 px-6 py-3 rounded-full text-lg font-medium transition duration-300">
+                    Our Services
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 flex justify-center pb-4">
+            <a href="#services" class="text-white animate-bounce">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our <span class="text-red-600">Services</span></h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Specialized care for your Japanese vehicle with factory-trained technicians using genuine parts.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md transition duration-300 p-6">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-tools text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Routine Maintenance</h3>
+                    <p class="text-gray-600 mb-4">
+                        Keep your vehicle running smoothly with our comprehensive maintenance services including oil changes, fluid checks, and more.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Oil & Filter Change</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Tire Rotation</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Brake Inspection</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md transition duration-300 p-6">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-car-crash text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Engine Repair</h3>
+                    <p class="text-gray-600 mb-4">
+                        Expert diagnosis and repair for all engine issues, from minor tune-ups to complete overhauls.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Engine Diagnostics</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Timing Belt Replacement</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Head Gasket Repair</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md transition duration-300 p-6">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Electrical Systems</h3>
+                    <p class="text-gray-600 mb-4">
+                        Comprehensive electrical system services including diagnostics, repairs, and upgrades.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Battery Service</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Alternator Repair</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Wiring Issues</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md transition duration-300 p-6">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-fan text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Transmission Service</h3>
+                    <p class="text-gray-600 mb-4">
+                        Specialized transmission services to keep your vehicle shifting smoothly.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Fluid Change</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Filter Replacement</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Complete Rebuilds</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md transition duration-300 p-6">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-life-ring text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Suspension & Steering</h3>
+                    <p class="text-gray-600 mb-4">
+                        Complete suspension and steering services to ensure a smooth and safe ride.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Alignment</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Shock/Strut Replacement</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Ball Joints & Bushings</li>
+                    </ul>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md transition duration-300 p-6">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-temperature-high text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cooling System</h3>
+                    <p class="text-gray-600 mb-4">
+                        Keep your engine at optimal temperature with our cooling system services.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Radiator Flush</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Water Pump Replacement</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-red-600 mr-2"></i> Thermostat Service</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12">
+                    <img src="https://images.unsplash.com/photo-1543465077-db45d34b88a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Our mechanics at work" 
+                         class="rounded-lg shadow-xl w-full h-auto">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">About <span class="text-red-600">The Toy Shop</span></h2>
+                    <p class="text-gray-600 mb-4">
+                        Founded in 2005, The Toy Shop has been the trusted name for Japanese auto repair in our community. Our team of factory-trained technicians brings authentic Japanese craftsmanship to every repair.
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        We specialize exclusively in Japanese vehicles, allowing us to provide the most accurate diagnostics and repairs using genuine or OEM parts. Our attention to detail and commitment to quality sets us apart.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-start">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-award text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Certified Technicians</h4>
+                                <p class="text-gray-600 text-sm">Factory-trained and certified</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-shield-alt text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Warranty</h4>
+                                <p class="text-gray-600 text-sm">12-month/12,000-mile warranty</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-clock text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Quick Service</h4>
+                                <p class="text-gray-600 text-sm">Most repairs completed same day</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-red-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-dollar-sign text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Fair Pricing</h4>
+                                <p class="text-gray-600 text-sm">No hidden fees, upfront quotes</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#Team" class="inline-block bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-medium transition duration-300">
+                        Meet Our Team
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section id="brands" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">We Service All <span class="text-red-600">Japanese Brands</span></h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    From economy cars to luxury vehicles, we have the expertise to service all major Japanese brands.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://pngimg.com/d/car_logo_PNG1665.png" alt="Toyota Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Toyota</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://wallpapers.com/images/high/honda-logo-silver-emblem-tedwuquzqtp5iotc.png" alt="Honda Logo" class="w-30 h-30 object-contain">
+                    </div>
+                    <span class="font-medium">Honda</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://cdn.freebiesupply.com/logos/large/2x/nissan-6-logo-png-transparent.png" alt="Nissan Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Nissan</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://pngimg.com/d/subaru_PNG11965.png" alt="Subaru Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Subaru</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://pngimg.com/d/mazda_PNG86.png" alt="Mazda Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Mazda</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Mitsubishi-logo.png" alt="Mitsubishi Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Mitsubishi</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://cdn.freebiesupply.com/logos/large/2x/lexus-logo-png-transparent.png" alt="Lexus Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Lexus</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                       <img src="https://cdn.freebiesupply.com/logos/large/2x/acura-2-logo-png-transparent.png" alt="Acura Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Acura</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://purepng.com/public/uploads/large/purepng.com-infiniti-car-logologocar-brand-logoscarsinfiniti-car-logo-1701527428178ogamk.png" alt="Infiniti Logo" class="w-13 h-13 object-contain">
+                    </div>
+                    <span class="font-medium">Infiniti</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://www.pngkey.com/png/full/531-5311787_suzuki-logo-motorcycle-brands-suzuki-motor-logo-png.png" alt="Suzuki Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Suzuki</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://pngimg.com/d/isuzu_PNG23.png" alt="Isuzu Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Isuzu</span>
+                </div>
+                <div class="brand-logo flex flex-col items-center p-4">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <img src="https://cdn.freebiesupply.com/logos/large/2x/daihatsu-1-logo-png-transparent.png" alt="Daihatsu Logo" class="w-12 h-12 object-contain">
+                    </div>
+                    <span class="font-medium">Daihatsu</span>
+                </div>
+            </div>
+        </div>
+    </section>
+  
+  <section id = "Team" class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Meet Our <span class="text-red-600">Team</span></h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Our passionate and skilled team is the heart of what we do. Get to know the people behind the work.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Team Member 1 -->
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <img src="https://static.thenounproject.com/png/3890959-200.png" alt="Team Member" class="w-24 h-24 mx-auto rounded-full mb-4">
+                <h4 class="text-xl font-bold mb-1">Example</h4>
+                <p class="text-red-600 font-medium mb-3">Lead Mechanic</p>
+                <p class="text-gray-600">
+                    description.
+                </p>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <img src="https://static.thenounproject.com/png/3890959-200.png" alt="Team Member" class="w-24 h-24 mx-auto rounded-full mb-4">
+                <h4 class="text-xl font-bold mb-1">Example</h4>
+                <p class="text-red-600 font-medium mb-3">Customer Service Manager</p>
+                <p class="text-gray-600">
+                    description.
+                </p>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <img src="https://static.thenounproject.com/png/3890959-200.png" alt="Team Member" class="w-24 h-24 mx-auto rounded-full mb-4">
+                <h4 class="text-xl font-bold mb-1">Example</h4>
+                <p class="text-red-600 font-medium mb-3">Parts Specialist</p>
+                <p class="text-gray-600">
+                    description.
+                </p>
+            </div>
+        </div>
+    </div>
+  </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-white-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our <span class="text-red-600">Customers Say</span></h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Don't just take our word for it. Here's what our customers have to say about their experience.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-red-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Michael T.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "The Toy Shop saved me thousands compared to the dealership. Their knowledge of my Toyota is incredible and they explained everything in detail. Will never go anywhere else!"
+                    </p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-red-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sarah K.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "As a woman, I often feel taken advantage of at repair shops. Not here! The Toy Shop treated me with respect, didn't upsell me, and fixed my Honda quickly. So refreshing!"
+                    </p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-red-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Alexander L.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "I've been taking my Subaru to The Toy Shop for 5 years now. They remember me and my car every time. Their attention to detail is unmatched and their prices are fair."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+<!-- Contact Section -->
+<section id="contact" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact <span class="text-red-600">Us</span></h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Ready to schedule service or have questions? Reach out to us today!
+            </p>
+        </div>
+        
+        <div class="flex flex-col lg:flex-row gap-12">
+            <div class="lg:w-1/2">
+                <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <input type="hidden" name="access_key" value="acb1e8de-cecd-49de-a3ad-4e2b9c94dc85">
+        <div>
+            <label for="name" class="block text-gray-700 mb-2">Name</label>
+            <input type="text" id="name" name="Name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+        </div>
+        <div>
+            <label for="email" class="block text-gray-700 mb-2">Email</label>
+            <input type="email" id="email" name="Email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+        </div>
+    </div>
+
+    <div>
+        <label for="phone" class="block text-gray-700 mb-2">Phone</label>
+        <input type="tel" id="phone" name="Phone" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+    </div>
+
+    <div>
+        <label for="vehicle" class="block text-gray-700 mb-2">Vehicle (Year, Make, Model)</label>
+        <input type="text" id="vehicle" name="Vehicle" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+    </div>
+
+    <div>
+        <label for="service" class="block text-gray-700 mb-2">Service Needed</label>
+        <select id="service" name="Service Needed" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+            <option value="">Select a service</option>
+            <option value="Routine Maintenance">Routine Maintenance</option>
+            <option value="Engine Repair">Engine Repair</option>
+            <option value="Electrical Systems">Electrical Systems</option>
+            <option value="Transmission Service">Transmission Service</option>
+            <option value="Suspension & Steering">Suspension & Steering</option>
+            <option value="Cooling System">Cooling System</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="appointment-date" class="block text-gray-700 mb-2">Preferred Appointment Date</label>
+        <input type="date" id="appointment-date" name="Appointment Date" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+    </div>
+
+    <div>
+        <label for="message" class="block text-gray-700 mb-2">Message</label>
+        <textarea id="message" name="Message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+    </div>
+
+    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-medium transition duration-300">
+        Book Appointment
+    </button>
+</form>
+            </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md h-full">
+                        <h3 class="text-2xl font-bold mb-6">Visit Our Shop</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-red-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Address</h4>
+                                    <p class="text-gray-600">880 Jamerson Rd<br> Marietta, GA 30066</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-red-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Phone</h4>
+                                    <p class="text-gray-600">(770) 926-3230</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-red-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Email</h4>
+                                    <p class="text-gray-600">service@thetoyshop.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-red-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-clock text-red-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Hours</h4>
+                                    <p class="text-gray-600">
+                                        Monday - Friday: 8:00 AM - 6:00 PM<br>
+                                        Saturday: 9:00 AM - 3:00 PM<br>
+                                        Sunday: Closed
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition duration-300">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition duration-300">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition duration-300">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition duration-300">
+                                    <i class="fab fa-yelp"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<div class="h-96 w-full">
+    <iframe 
+        width="100%" 
+        height="100%" 
+        style="border:0;" 
+        loading="lazy"
+        allowfullscreen 
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.424178626018!2d-84.52378752439274!3d34.06575237317544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f50f9d24822f1f%3A0xdd93bbbe26833b10!2s880%20Jamerson%20Rd%2C%20Marietta%2C%20GA%2030066%2C%20USA!5e0!3m2!1sen!2sus!4v1716401132432!5m2!1sen!2sus">
+    </iframe>
+</div>
+  
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">The Toy Shop</h3>
+                    <p class="text-gray-400 mb-4">
+                        Specializing in Japanese auto repair since 2005. Your trusted partner for all your Japanese vehicle needs.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                            <i class="fab fa-yelp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition duration-300">Services</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#brands" class="text-gray-400 hover:text-white transition duration-300">Brands We Service</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Routine Maintenance</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Engine Repair</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Electrical Systems</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Transmission Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Suspension & Steering</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-red-500"></i>
+                            <span>123 Sakura Street, Tokyo District<br>Your City, ST 12345</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-red-500"></i>
+                            <span>(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-red-500"></i>
+                            <span>service@thetoyshop.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 The Toy Shop - Japanese Auto Repair. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Create sakura falling animation
+        function createSakura() {
+            const sakura = document.createElement('div');
+            sakura.classList.add('sakura');
+            
+            // Random position and size
+            const left = Math.random() * 100;
+            const size = Math.random() * 15 + 10;
+            const duration = Math.random() * 10 + 5;
+            const delay = Math.random() * 5;
+            
+            sakura.style.left = `${left}%`;
+            sakura.style.width = `${size}px`;
+            sakura.style.height = `${size}px`;
+            sakura.style.animationDuration = `${duration}s`;
+            sakura.style.animationDelay = `${delay}s`;
+            sakura.style.opacity = Math.random() * 0.5 + 0.3;
+            
+            document.getElementById('sakura-container').appendChild(sakura);
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                sakura.remove();
+            }, duration * 1000);
+        }
+        
+        // Create multiple sakura
+        function initSakura() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createSakura, i * 300);
+            }
+            
+            // Keep creating new sakura
+            setInterval(() => {
+                createSakura();
+            }, 300);
+        }
+        
+        // Start sakura animation when page loads
+        window.addEventListener('load', initSakura);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
