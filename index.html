@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
   <meta charset="UTF-8">
   <style>
     body, html {
@@ -18,7 +18,7 @@
       background: #ffe6f0;
       font-family: sans-serif;
       font-size: 2rem;
-      animation: fadeOut 1s ease-in-out 1s forwards;
+      animation: fadeOut 0.5s ease-in-out 1s forwards; /* shorter fade */
     }
 
     #mainContent {
@@ -33,7 +33,6 @@
       }
     }
 
-    /* Sakura animation styles - simple falling petals */
     .petal {
       position: absolute;
       width: 20px;
@@ -41,7 +40,7 @@
       background: pink;
       border-radius: 50%;
       opacity: 0.7;
-      animation: fall 5s linear infinite;
+      animation: fall 2s linear infinite; /* shorter fall */
     }
 
     @keyframes fall {
@@ -58,36 +57,34 @@
 </head>
 <body>
   <div id="sakuraAnimation">
+    🌸
   </div>
 
   <div id="mainContent">
-    <h1>Welcome to the Main Page</h1>
-    <p>This is your main content after the Sakura animation plays on refresh.</p>
+    <h1>Welcome back!</h1>
+    <p>This is your main content.</p>
   </div>
 
   <script>
-    // Helper to detect refresh
     const isRefreshed = performance.navigation.type === 1 || performance.getEntriesByType("navigation")[0]?.type === "reload";
 
     const sakuraDiv = document.getElementById('sakuraAnimation');
     const mainContent = document.getElementById('mainContent');
 
     if (isRefreshed) {
-      // Add sakura petals
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 15; i++) {
         const petal = document.createElement('div');
         petal.className = 'petal';
         petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDelay = Math.random() * 5 + 's';
+        petal.style.animationDelay = Math.random() * 2 + 's'; // sync with shorter fall
         sakuraDiv.appendChild(petal);
       }
 
       setTimeout(() => {
         sakuraDiv.style.display = 'none';
         mainContent.style.display = 'block';
-      }, 5000); // adjust duration as needed
+      }, 1500); // now just 1.5 seconds total
     } else {
-      // If not a refresh, just show the content directly
       sakuraDiv.style.display = 'none';
       mainContent.style.display = 'block';
     }
