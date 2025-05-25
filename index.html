@@ -8,22 +8,25 @@
       padding: 0;
       height: 100%;
       overflow: hidden;
+      background: #111;
     }
 
-    #sakuraAnimation {
+    #carAnimation {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: #ffe6f0;
-      font-family: sans-serif;
-      font-size: 2rem;
-      animation: fadeOut 0.5s ease-in-out 1s forwards; /* shorter fade */
+      background: radial-gradient(circle, #222 40%, #000 100%);
+      position: relative;
+      animation: fadeOut 0.5s ease-in-out 1.5s forwards;
+      overflow: hidden;
     }
 
     #mainContent {
       display: none;
       padding: 20px;
+      color: white;
+      text-align: center;
     }
 
     @keyframes fadeOut {
@@ -33,31 +36,68 @@
       }
     }
 
-    .petal {
+    .car {
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background: pink;
-      border-radius: 50%;
-      opacity: 0.7;
-      animation: fall 2s linear infinite; /* shorter fall */
+      width: 80px;
+      height: 40px;
+      background: red;
+      border-radius: 10px;
+      transform: rotate(0deg);
+      animation: driftIn 1.5s ease-in-out forwards;
+      box-shadow: 0 0 20px #f00;
     }
 
-    @keyframes fall {
+    .wheel {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: black;
+      border-radius: 50%;
+      bottom: -6px;
+    }
+
+    .wheel.left { left: 5px; }
+    .wheel.right { right: 5px; }
+
+    .smoke {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      animation: smokeUp 1s ease-out infinite;
+    }
+
+    @keyframes driftIn {
       0% {
-        transform: translateY(-20px) rotate(0deg);
-        opacity: 0.9;
+        transform: translateX(-150%) rotate(0deg);
+      }
+      50% {
+        transform: translateX(40%) rotate(360deg);
       }
       100% {
-        transform: translateY(100vh) rotate(360deg);
+        transform: translateX(150%) rotate(0deg);
+      }
+    }
+
+    @keyframes smokeUp {
+      0% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(2);
         opacity: 0;
       }
     }
   </style>
 </head>
 <body>
-  <div id="sakuraAnimation">
-    🌸
+  <div id="carAnimation">
+    <div class="car" id="car">
+      <div class="wheel left"></div>
+      <div class="wheel right"></div>
+    </div>
   </div>
 
   <div id="mainContent">
@@ -68,24 +108,26 @@
   <script>
     const isRefreshed = performance.navigation.type === 1 || performance.getEntriesByType("navigation")[0]?.type === "reload";
 
-    const sakuraDiv = document.getElementById('sakuraAnimation');
+    const carDiv = document.getElementById('carAnimation');
     const mainContent = document.getElementById('mainContent');
 
     if (isRefreshed) {
-      for (let i = 0; i < 15; i++) {
-        const petal = document.createElement('div');
-        petal.className = 'petal';
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDelay = Math.random() * 2 + 's'; // sync with shorter fall
-        sakuraDiv.appendChild(petal);
+      // Add smoke bursts for flair
+      for (let i = 0; i < 10; i++) {
+        const smoke = document.createElement('div');
+        smoke.className = 'smoke';
+        smoke.style.left = (Math.random() * 100) + 'vw';
+        smoke.style.top = (Math.random() * 100) + 'vh';
+        smoke.style.animationDelay = (Math.random() * 1) + 's';
+        carDiv.appendChild(smoke);
       }
 
       setTimeout(() => {
-        sakuraDiv.style.display = 'none';
+        carDiv.style.display = 'none';
         mainContent.style.display = 'block';
-      }, 1500); // now just 1.5 seconds total
+      }, 1800); // Show main content after animation
     } else {
-      sakuraDiv.style.display = 'none';
+      carDiv.style.display = 'none';
       mainContent.style.display = 'block';
     }
   </script>
