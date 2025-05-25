@@ -1,1 +1,33 @@
+# 🌐 Custom Website
 
+This is a fully responsive and lightweight custom website built using **HTML, CSS, and optional JavaScript**. It is ideal for showcasing a portfolio, business, or personal brand. Designed with clean code, mobile optimization, and ease of customization in mind.
+
+---
+
+## 📁 Project Structure
+
+/index.html → Main website page
+/style.css → All website styling(N/A)
+/script.js → (Optional) JavaScript interactions
+/assets/ → Images, icons, and fonts(Can add in future)
+
+
+
+---
+
+## ✅ Features
+
+- 💻 Fully responsive layout (mobile/tablet/desktop)
+- 🌐 Built with plain HTML/CSS — no frameworks needed
+- ⚡ Fast loading and optimized for performance
+- 🔍 SEO-friendly structure (semantic tags, metadata)
+- 🖼️ Easy image and text replacement
+- 📦 Hosted via GitHub or any static site host (Netlify, Vercel, etc.)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone or download the repository:
+```bash
+git clone https://github.com/yourusername/your-repo-name.git
