@@ -1,5 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+  <meta charset="UTF-8">
+  <title>Sakura Tree Animation</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #sakuraAnimation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #ffe6f0;
+      font-family: sans-serif;
+      font-size: 2rem;
+      animation: fadeOut 2s ease-in-out 3s forwards;
+    }
+
+    #mainContent {
+      display: none;
+      padding: 20px;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* Sakura animation styles - simple falling petals */
+    .petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="sakuraAnimation">
+    🌸 Sakura Animation 🌸
+  </div>
+
+  <div id="mainContent">
+    <h1>Welcome to the Main Page</h1>
+    <p>This is your main content after the Sakura animation plays on refresh.</p>
+  </div>
+
+  <script>
+    // Helper to detect refresh
+    const isRefreshed = performance.navigation.type === 1 || performance.getEntriesByType("navigation")[0]?.type === "reload";
+
+    const sakuraDiv = document.getElementById('sakuraAnimation');
+    const mainContent = document.getElementById('mainContent');
+
+    if (isRefreshed) {
+      // Add sakura petals
+      for (let i = 0; i < 30; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDelay = Math.random() * 5 + 's';
+        sakuraDiv.appendChild(petal);
+      }
+
+      setTimeout(() => {
+        sakuraDiv.style.display = 'none';
+        mainContent.style.display = 'block';
+      }, 5000); // adjust duration as needed
+    } else {
+      // If not a refresh, just show the content directly
+      sakuraDiv.style.display = 'none';
+      mainContent.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
